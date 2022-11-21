@@ -31,13 +31,10 @@ def parse(data:str):
             if re.match(r"^\s*#.*", line):
                 print('comment line')
                 continue
-            print(line)
             line = re.sub(r"\s", '', line).strip().strip('-')
             k = re.split(r"[:=]", line)[0].strip('\'\"')
             v = re.split(r"[:=]", line)[1].strip('\'\"')
-            p[k] = v
-            print(k, v)    
-        print(p)
+            p[k] = v  
         return p
     except:
         return {'error': 'parse failed by some reason'}
@@ -47,6 +44,7 @@ app.jinja_env.globals.update(version=version)
 @app.route('/', methods=['GET', 'POST'])
 def form():
     payload = {}
+    raw = {}
     if request.method == 'POST':
         data = dict(request.form)['input']
         raw = data
@@ -57,8 +55,7 @@ def form():
         payload['QKV'] = '\n'.join([': '.join([f"'{k}'", f"'{v}'"]) for k, v in parsed.items()])
         payload['QKVL'] = '\n'.join([': '.join([f"- '{k}'", f"'{v}'"]) for k, v in parsed.items()])
 
-        
-        print(payload)
+
         return render_template('index.html', payload=payload, raw=raw)
     return render_template('index.html', payload='not payload', raw=raw)
  
