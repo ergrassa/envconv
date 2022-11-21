@@ -1,0 +1,71 @@
+<!doctype html>
+
+<head>
+<title>JSON/K=V/k:v converter</title> 
+<meta charset=utf-8>
+
+<link href="prism.css" rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link href="/css/fontawesome.css" rel="stylesheet">
+<link href="/css/brands.css" rel="stylesheet">
+<link href="/css/solid.css" rel="stylesheet">
+<link rel="stylesheet" href="main.css">
+
+</head>
+
+<body>
+<script src="prism.js"></script>
+<script src="convert.js"></script>
+<script>
+    function copyData(elid) {
+        var c = document.getElementById(elid).innerText;
+        navigator.clipboard.writeText(c);
+        console.log("Copied " + elid + "to clipboard")
+    }
+</script>
+    <div class="head less-gap-bottom" id="back">
+    </div>
+    <form action="{{ url_for("form")}}" method="post" class="container less-gap-top">
+
+    <fieldset class="input-block curv flex-column">
+        <legend>General</legend>
+        <textarea name="input" value="centergamedev"
+        class="input-textarea" id="input"
+        cols="128" rows="24">{{raw}}</textarea>
+        <div class="head-buttons">
+            <button type="submit" class="button convert">Convert</button>
+        </div>
+    </fieldset>
+    </form>
+    <div class="output">
+        {% set lang = {
+            'JSON': 'json',
+            'KV': 'toml',
+            'KVL': 'ini',
+            'QKV': 'yaml',
+            'QKVL': 'yaml'
+        }
+        %}
+        {% for k, v in payload.items() %}
+        <div class="output-block">
+            <div class="header">
+                <div class="header-text">
+                    {{ k }}
+                </div>
+                <div class="header-buttons">
+                    <div onClick=copyData("out_{{k}}")>
+                    <a class="local button block-button copy">Copy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="codeblock">
+                <pre class="code" id="code"><code class="language-{{ lang[k] }} line-numbers" id="out_{{k}}">{{ v }}</code></pre>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="tail version">version {{ version() }}</div>
+</body>
