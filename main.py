@@ -57,7 +57,7 @@ def form():
 
 
         return render_template('index.html', payload=payload, raw=raw)
-    return render_template('index.html', payload='not payload', raw=raw)
+    return render_template('index.html', payload={'info': 'no payload'}, raw=raw)
  
 if __name__=='__main__':
 #    app.run()
