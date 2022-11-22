@@ -31,9 +31,9 @@ def parse(data:str):
             if re.match(r"^\s*#.*", line):
                 print('comment line')
                 continue
-            line = re.sub(r"\s", '', line).strip().strip('-')
+            line = re.sub(r"[\n\r]", '', line).strip().strip('-')
             k = re.split(r"[:=]", line)[0].strip('\'\"')
-            v = re.split(r"[:=]", line)[1].strip('\'\"')
+            v = ''.join(re.split(r"[:=]", line)[1:]).strip('\'\"')
             p[k] = v  
         return p
     except:
