@@ -32,8 +32,9 @@ def parse(data:str):
                 print('comment line')
                 continue
             line = re.sub(r"[\n\r]", '', line).strip().strip('-')
-            k = re.split(r"[:=]", line)[0].strip('\'\"')
-            v = ''.join(re.split(r"[:=]", line)[1:]).strip('\'\"')
+            k = re.split(r"[:=]", line, maxsplit=1)[0].strip('\'\"')
+            v = re.split(r"[:=]", line, maxsplit=1)[1].strip('\'\"')
+            print(k, v)
             p[k] = v  
         return p
     except:
