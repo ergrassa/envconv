@@ -31,11 +31,12 @@ def parse(data:str):
             if re.match(r"^\s*#.*", line):
                 print('comment line')
                 continue
-            line = re.sub(r"[\n\r]", '', line).strip().strip('-')
+            # line = re.sub(r"[\n\r]", '', line)
             k = re.split(r"[:=]", line, maxsplit=1)[0].strip('\'\"')
+            k = re.sub(r"^\s+\-?\s*", '', k)
             v = re.split(r"[:=]", line, maxsplit=1)[1].strip('\'\"')
-            print(k, v)
-            p[k] = v  
+            p[k] = v
+            print(f"→{k}←   :   →{v}←")
         return p
     except:
         return {'error': 'parse failed by some reason'}
