@@ -3,6 +3,7 @@ from flask import Flask, request, render_template
 import json
 import os, time
 import re
+import random
 
 def version():
     version = 'None'
@@ -48,9 +49,25 @@ def form():
     payload = {}
     raw = {}
     if request.method == 'POST':
-        data = dict(request.form)['input']
+        rq = dict(request.form)
+        data = rq['input']
         raw = data
         parsed = parse(data)
+        try:
+            if rq['filetype'] != 'none':
+                parsed['__type__'] = rq['filetype']
+                print(rq['filename'])
+                if len(rq['filename']) > 0:
+                    parsed['__filename__'] = rq['filename']
+                else:
+                    parsed['__filename__'] = ''.join([random.choice('0123456789abcdefghikmnoprstuvwxy') for _ in range(16)]) \
+                        + '.' + rq['filetype']
+                if rq['filetype'] == 'file':
+                    parsed['__filename__'] += '.b64encoded'
+                if len(rq['filepath']) > 0:
+                    parsed['__path__'] = rq['filepath']
+        except:
+            pass
         payload['JSON'] = json.dumps(parsed, indent=4)
         payload['KV'] = '\n'.join(['='.join([k, v]) for k, v in parsed.items()])
         payload['KVL'] = '\n'.join(['='.join([f"- {k}", v]) for k, v in parsed.items()])

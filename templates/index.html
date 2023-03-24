@@ -36,6 +36,21 @@
         <textarea name="input" value="centergamedev"
         class="input-textarea" id="input"
         cols="128" rows="24">{{raw}}</textarea>
+        <div class="flex-row">
+            <label for="filename">File name</label>
+            <input type="text" size="24" class="input-text" name="filename" id="filename" value="" />
+            <label for="filename">Output path</label>
+            <input type="text" size="48" class="input-text" name="filepath" id="filepath" value="" />
+        <fieldset class="input-block curv flex-row radio">
+            <legend>File type</legend>
+            <input label="None" type="radio" class="redgrad" id="none" name="filetype" value="none" checked>
+            <input label="JSON" type="radio" id="json" name="filetype" value="json">
+            <input label="ENV" type="radio" id="env" name="filetype" value="env">
+            <input label="YAML" type="radio" id="yml" name="filetype" value="yml">
+            <input label="Plaintext" type="radio" id="txt" name="filetype" value="txt">
+            <input label="Base64-file" type="radio" id="file" name="filetype" value="file">
+        </fieldset>
+        </div>
         <div class="head-buttons">
             <button type="submit" class="button convert">Convert</button>
         </div>

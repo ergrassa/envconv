@@ -228,6 +228,16 @@ code[class*=language-], pre[class*=language-] {
     font-family: monospace;
     border-radius: 8px;
     padding: 0.25em;
+    margin: 0.25em;
+}
+.input-text {
+    background-color: #444;
+    color: #fff;
+    font-size: 95%;
+    font-family: monospace;
+    border-radius: 8px;
+    padding: 0.5em;
+    margin: 0.25em;
 }
 .input-drop {
     background-color: #555;
@@ -637,4 +647,43 @@ code[class*=language-], pre[class*=language-] {
     display: flex;
     font-size: 2em;
     padding-left: 0.5em;
+}
+
+
+
+.radio input {
+	width: auto;
+	height: 100%;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	outline: none;
+	cursor: pointer;
+	border-radius: 6px;
+	padding: 4px 16px;
+	background: #444;
+	color: #ddd;
+	transition: all 100ms linear;
+}
+
+.radio input:checked {
+	background-image: linear-gradient(0deg, #95d891, #69ca4b);
+	color: #020;
+}
+
+.redgrad{
+	background: #500 !important;
+	color: #020 !important;
+}
+
+.redgrad:checked {
+	background-image: linear-gradient(0deg, #803c27, #ad3828) !important;
+	color: #020 !important;
+}
+
+.radio input:before {
+	content: attr(label);
+	display: inline-block;
+	text-align: center;
+	width: 100%;
 }
